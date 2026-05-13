@@ -14,11 +14,11 @@ USE fti_hc;
 --    guard_name = konteks guard (default: 'web' untuk session-based auth)
 -- ============================================
 CREATE TABLE IF NOT EXISTS roles (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     guard_name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NULL DEFAULT NULL,
-    updated_at TIMESTAMP NULL DEFAULT NULL
+    created_at DATETIME NULL DEFAULT NULL,
+    updated_at DATETIME NULL DEFAULT NULL
 );
 
 -- ============================================
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS roles (
 --    Password disimpan dalam bentuk hash bcrypt
 -- ============================================
 CREATE TABLE IF NOT EXISTS users (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -47,11 +47,11 @@ CREATE TABLE IF NOT EXISTS users (
 --    guard_name = konteks guard, sama seperti di roles
 -- ============================================
 CREATE TABLE IF NOT EXISTS permissions (
-    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     guard_name VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP NULL DEFAULT NULL,
-    updated_at TIMESTAMP NULL DEFAULT NULL
+    created_at DATETIME NULL DEFAULT NULL,
+    updated_at DATETIME NULL DEFAULT NULL
 );
 
 -- ============================================
@@ -61,9 +61,9 @@ CREATE TABLE IF NOT EXISTS permissions (
 --    model_id = ID dari user yang diberi permission
 -- ============================================
 CREATE TABLE IF NOT EXISTS model_has_permissions (
-    permission_id BIGINT UNSIGNED NOT NULL,
+    permission_id BIGINT NOT NULL,
     model_type VARCHAR(255) NOT NULL,
-    model_id BIGINT UNSIGNED NOT NULL,
+    model_id INT NOT NULL,
     PRIMARY KEY (permission_id, model_id, model_type),
     FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE
 );
@@ -76,9 +76,9 @@ CREATE TABLE IF NOT EXISTS model_has_permissions (
 --    model_id = ID dari user yang diberi role
 -- ============================================
 CREATE TABLE IF NOT EXISTS model_has_roles (
-    role_id BIGINT UNSIGNED NOT NULL,
+    role_id BIGINT NOT NULL,
     model_type VARCHAR(255) NOT NULL,
-    model_id BIGINT UNSIGNED NOT NULL,
+    model_id INT NOT NULL,
     PRIMARY KEY (role_id, model_id, model_type),
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
 );
@@ -89,8 +89,8 @@ CREATE TABLE IF NOT EXISTS model_has_roles (
 --    Misal: role 'hr_admin' punya permission 'manage-pegawai'
 -- ============================================
 CREATE TABLE IF NOT EXISTS role_has_permissions (
-    permission_id BIGINT UNSIGNED NOT NULL,
-    role_id BIGINT UNSIGNED NOT NULL,
+    permission_id BIGINT NOT NULL,
+    role_id BIGINT NOT NULL,
     PRIMARY KEY (permission_id, role_id),
     FOREIGN KEY (permission_id) REFERENCES permissions(id) ON DELETE CASCADE,
     FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
