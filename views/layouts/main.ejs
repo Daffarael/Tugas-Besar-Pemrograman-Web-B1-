@@ -1,0 +1,56 @@
+<!--
+     Layout Utama — FTI HC
+     
+     File ini membungkus SEMUA halaman setelah login
+     Struktur: sidebar di kiri + (header + konten) di kanan
+     
+     Setiap halaman (dashboard, pegawai, dll) akan dimasukkan
+     ke dalam area "body" di bawah
+     ============================================ -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Judul tab browser: kalau ada title dari controller, tampilin "Title — FTI HC"
+         Kalau tidak ada, tampilin "FTI HC" saja -->
+    <title><%= typeof title !== 'undefined' ? title + ' — ' : '' %>FTI HC</title>
+
+    <!-- Basecoat UI: framework CSS dari dosen untuk komponen dasar
+         Kalau mau ganti versi, ubah angka 0.3.11 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/basecoat.cdn.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.11/dist/js/all.min.js" defer></script>
+
+    <!-- Tailwind CSS CDN (untuk utility classes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- CSS custom kita (sidebar, header, layout)
+         File-nya ada di public/css/style.css -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Layout utama: sidebar kiri + area konten kanan (flexbox) -->
+    <div class="app-layout">
+
+        <!-- Sidebar: navigasi di kiri, file ada di views/partials/sidebar.ejs -->
+        <%- include('../partials/sidebar') %>
+
+        <!-- Area konten: header di atas + isi halaman di bawah -->
+        <div class="app-main">
+
+            <!-- Header: bar atas dengan judul + info user, file ada di views/partials/header.ejs -->
+            <%- include('../partials/header') %>
+
+            <!-- Isi halaman: berubah tergantung route yang dibuka -->
+            <main class="app-content">
+
+                <!-- Flash messages: notifikasi sekali pakai (login/logout/aksi) -->
+                <%- include('../partials/flash') %>
+
+                <%# body = isi halaman yang di-render oleh controller %>
+                <%- body %>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

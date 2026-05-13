@@ -1,0 +1,128 @@
+<!-- ============================================
+     Sidebar Navigasi — FTI HC
+     
+     Panel navigasi di sisi kiri halaman
+     Menu ditampilkan berdasarkan role user:
+     - hr_admin: lihat menu Kepegawaian
+     - mhs_admin: lihat menu Kemahasiswaan
+     
+     Kalau mau tambah menu baru, copy paste blok <a> di bawah
+     dan ganti href, icon SVG, dan teksnya
+     ============================================ -->
+<aside class="app-sidebar">
+
+    <!-- Logo dan nama sistem di bagian atas sidebar -->
+    <div class="sidebar-brand">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <!-- Logo FTI, pastikan file ada di public/images/logo-fti.png
+                 Ubah width/height untuk ganti ukuran logo -->
+            <img src="/images/logo-fti.png" alt="Logo FTI" style="width: 28px; height: 28px; object-fit: contain; opacity: 0.7;">
+            <div>
+                <!-- Nama sistem, ubah teks di sini kalau nama berubah -->
+                <h1>FTI HC</h1>
+                <!-- Sub-judul -->
+                <p>Data Induk Pegawai</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Area menu navigasi (bisa di-scroll kalau menu banyak) -->
+    <nav class="sidebar-nav">
+
+        <!-- ====== MENU UTAMA ======
+             Menu ini terlihat oleh SEMUA role -->
+        <div class="sidebar-section">
+            <span class="sidebar-label">Menu Utama</span>
+            <!-- Setiap link menu: href = URL tujuan, SVG = icon, teks = nama menu
+                 Kalau mau tambah menu, copy blok <a> ini dan ganti isinya -->
+            <a href="/dashboard" class="sidebar-link">
+                <!-- Icon grid 4 kotak (dashboard) -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Dashboard
+            </a>
+        </div>
+
+        <!-- ====== MENU KEPEGAWAIAN ======
+             Hanya terlihat kalau user punya role 'hr_admin'
+             Kondisi dicek pakai EJS: if (user.role_name === 'hr_admin') -->
+        <% if (user && user.role_name === 'hr_admin') { %>
+            <div class="sidebar-section">
+                <span class="sidebar-label">Kepegawaian</span>
+
+                <!-- Menu Data Pegawai & Dosen -->
+                <a href="/pegawai" class="sidebar-link">
+                    <!-- Icon 2 orang (grup) -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Data Pegawai & Dosen
+                </a>
+
+                <!-- Menu Nomenklatur Jabatan -->
+                <a href="/jabatan" class="sidebar-link">
+                    <!-- Icon buku terbuka -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Nomenklatur Jabatan
+                </a>
+
+                <!-- Menu Struktur Jabatan -->
+                <a href="/struktur" class="sidebar-link">
+                    <!-- Icon koper/briefcase -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                    Struktur Jabatan
+                </a>
+
+                <!-- Menu Data SBM Perjalanan Dinas -->
+                <a href="/sbm" class="sidebar-link">
+                    <!-- Icon dollar/uang -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Data SBM Perjadin
+                </a>
+            </div>
+        <% } %>
+
+        <!-- ====== MENU KEMAHASISWAAN ======
+             Hanya terlihat kalau user punya role 'mhs_admin' -->
+        <% if (user && user.role_name === 'mhs_admin') { %>
+            <div class="sidebar-section">
+                <span class="sidebar-label">Kemahasiswaan</span>
+
+                <!-- Menu Data Mahasiswa -->
+                <a href="/mahasiswa" class="sidebar-link">
+                    <!-- Icon 1 orang -->
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                    Data Mahasiswa
+                </a>
+            </div>
+        <% } %>
+    </nav>
+
+    <!-- Info institusi di bagian bawah sidebar -->
+    <div class="sidebar-footer">
+        <div style="text-align: center; opacity: 0.5;">
+            <div style="font-size: 0.55rem; color: #c8ccda; letter-spacing: 1.5px; text-transform: uppercase;">Fakultas Teknologi Informasi</div>
+            <div style="font-size: 0.5rem; color: #9da1b8; letter-spacing: 2px; text-transform: uppercase; margin-top: 0.2rem;">Universitas Andalas</div>
+        </div>
+    </div>
+</aside>
+
+<!-- Script untuk highlight menu yang sedang aktif
+     Cara kerja: cek URL halaman sekarang, lalu tambahin class "active" ke link yang cocok -->
+<script>
+    (function() {
+        // Ambil path URL sekarang, misal: "/dashboard", "/pegawai", "/jabatan"
+        const path = window.location.pathname;
+
+        // Ambil semua link menu di sidebar
+        const links = document.querySelectorAll('.sidebar-link');
+
+        links.forEach(function(link) {
+            // Ambil href dari link, misal: "/dashboard"
+            const href = link.getAttribute('href');
+
+            // Kalau path URL cocok dengan href link, tambahin class "active"
+            // path.startsWith(href) supaya /pegawai/create tetap highlight menu /pegawai
+            if (href === '/' ? path === '/' : path.startsWith(href)) {
+                link.classList.add('active');
+            }
+        });
+    })();
+</script>
