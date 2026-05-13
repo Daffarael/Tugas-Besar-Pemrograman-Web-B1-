@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Environment (RAHASIA)
+.env
+
+# Upload files
+public/uploads/*
+!public/uploads/.gitkeep
+
+# File lama (bukan bagian project)
+Minggu 9/
+
+# Log files
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
