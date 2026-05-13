@@ -14,7 +14,7 @@ Aplikasi web untuk mengelola **Data Induk Pegawai** di lingkungan FTI HC (Human 
 | **Express.js** | Backend framework (Node.js) |
 | **MySQL** | Database (mysql2, tanpa ORM) |
 | **EJS** | Template engine (server-side rendering) |
-| **Basecoat UI** | CSS framework (dari dosen) |
+| **Basecoat UI** | CSS framework  |
 | **Tailwind CSS** | Utility-first CSS (CDN) |
 | **bcryptjs** | Hash password |
 | **express-session** | Session management |
